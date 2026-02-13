@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Whale Watcher: Real-Time Stock Volume Tracker
+
+A dark-themed stock volume analysis dashboard that detects whale activity (large institutional trades) using real-time data from the Alpha Vantage API. Built with Next.js, Tailwind CSS, and TypeScript.
+
+**[Live Demo](https://whale-watcher.netlify.app)**
+
+## Overview
+
+Whale Watcher analyzes trading volume patterns to generate buy/sell signals using a traffic light system:
+
+- **Green (Emerald)** — Strong buy signal with 70-100% confidence
+- **Yellow (Amber)** — Caution, mixed signals at 30-70% confidence
+- **Red (Rose)** — Weak/sell signal at 0-30% confidence
+
+When volume surges to 3x+ above average with positive price action, the app flags it as whale activity (95% confidence) with a bouncing whale emoji.
+
+### Features
+
+- Real-time stock data via Alpha Vantage API
+- Circular confidence gauge with color-coded signals
+- Whale detection for institutional-level volume surges
+- Historical pattern analysis across 30-day, 90-day, and 1-year timeframes
+- Pattern alerts: High Volume Surge, Divergence Warning, Low Volume Breakout, Volume Declining
+- Persistent watchlist (localStorage)
+- Educational tooltips explaining volume, divergence, fake breakouts, and more
+- Google Analytics integration
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- An [Alpha Vantage API key](https://www.alphavantage.co/support/#api-key) (free tier available)
+
+### Installation
+
+```bash
+git clone https://github.com/aiautomatedbusinesssolutions-del/whale-volume-tracker.git
+cd whale-volume-tracker
+npm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the project root:
+
+```
+NEXT_PUBLIC_ALPHAVANTAGE_API_KEY=your_alpha_vantage_api_key
+NEXT_PUBLIC_GA_ID=your_google_analytics_id
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+This generates a static export in the `out/` directory.
 
-To learn more about Next.js, take a look at the following resources:
+## Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework**: Next.js 16 (App Router, static export)
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS 4 (dark mode, slate/emerald/amber/rose palette)
+- **Icons**: Lucide React
+- **API**: Alpha Vantage (GLOBAL_QUOTE + TIME_SERIES_DAILY)
+- **Analytics**: Google Analytics via @next/third-parties
+- **Deployment**: Netlify
